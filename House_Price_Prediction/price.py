@@ -8,11 +8,17 @@ from sklearn.linear_model import LinearRegression
 df = pd.read_csv('House_Price_Prediction/train.csv')
 print(df)
 
-# Data preprocessing
-df = df.isnull()  # Check for missing values
-df = df.dropna()  # Drop rows with missing values
-
 # Display basic information about the dataset
 print(df.info())
 print(df.describe())
 
+# Feature engineering
+df['TotalSF'] = df['GrLivArea'] + df['TotalBsmtSF']
+df['Bathrooms'] = df['FullBath'] + 0.5 * df['HalfBath']
+print(df)
+
+# Select features and target variable
+X = df[['TotalSF', 'BedroomAbvGr', 'Bathrooms']]
+y = df['SalePrice']
+print(X)
+print(y)
